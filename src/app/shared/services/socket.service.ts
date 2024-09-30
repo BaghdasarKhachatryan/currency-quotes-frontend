@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CurrencyRate } from './model';
+import { throttleTime } from 'rxjs/operators';
+import { CurrencyRate } from '../model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,17 @@ import { CurrencyRate } from './model';
 export class SocketService {
   constructor(private socket: Socket) {}
 
-  getMessage(): Observable<CurrencyRate[]> {
-    return this.socket.fromEvent('currencyRates');
+  public getMessage(): Observable<CurrencyRate[]> {
+    return this.socket
+      .fromEvent<CurrencyRate[]>('currencyRates')
+      .pipe(throttleTime(500));
+  }
+
+  public connectSocket() {
+    this.socket.connect();
+  }
+
+  public disconnectSocket() {
+    this.socket.disconnect();
   }
 }

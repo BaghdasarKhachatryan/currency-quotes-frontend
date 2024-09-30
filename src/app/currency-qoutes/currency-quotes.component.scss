@@ -1,0 +1,35 @@
+.currencyQuotes {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  &__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    &__frequency {
+    }
+
+    &__actions {
+      display: flex;
+      gap: 4px;
+
+      &__item {
+        padding: 8px 12px;
+        color: #8ca7c0;
+        border: 1px solid #8ca7c0;
+        background-color: #fff;
+
+        &:hover {
+          background-color: #8ca7c0;
+          color: #fff;
+          transform: translateY(-3px);
+        }
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.goToCurrencyQutoes {
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.goToCurrencyQutoes:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+}
+
+.goToCurrencyQutoes:active {
+  transform: translateY(1px);
+}
