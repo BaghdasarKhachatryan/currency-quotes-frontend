@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+
 import { LayoutComponent } from './layout.component';
 import { HomeComponent } from './components/home/home.component';
 

@@ -9,7 +9,7 @@ import { CurrencyRate } from '../shared/model';
 import { SocketService } from '../shared/services/socket.service';
 import { FormControl, Validators } from '@angular/forms';
 import { RestApiService } from '../shared/services/rest-api.service';
-import { pipe, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -47,20 +47,30 @@ export class CurrencyQuotesComponent implements OnInit, OnDestroy {
     this.restApi
       .stopStartSendingData('stop')
       .pipe(takeUntil(this._complete$))
-      .subscribe((message: string) => {
-        this.snackBar.open(message, '', { duration: 1000 });
-      });
+      .subscribe(
+        (message: string) => {
+          this.snackBar.open(message, 'Close', { duration: 1000 });
+        },
+        (message: string) => {
+          this.snackBar.open(message, 'Close', { duration: 1000 });
+        }
+      );
   }
   public startSendingData() {
     this.restApi
       .stopStartSendingData('start')
       .pipe(takeUntil(this._complete$))
-      .subscribe((message: string) => {
-        this.snackBar.open(message, '', { duration: 1000 });
-      });
+      .subscribe(
+        (message: string) => {
+          this.snackBar.open(message, 'Close', { duration: 1000 });
+        },
+        (message: string) => {
+          this.snackBar.open(message, 'Close', { duration: 1000 });
+        }
+      );
   }
 
-  public onFrequencyValueSubmit(event: Event) {
+  public onFrequencyValueSubmit() {
     let interval = this.frequency.value!;
     this.restApi
       .setIntervalTimeout(interval)
@@ -70,8 +80,8 @@ export class CurrencyQuotesComponent implements OnInit, OnDestroy {
           this.snackBar.open(message, '', { duration: 1000 });
           this.frequency.setValue(null);
         },
-        (error: Error) => {
-          console.log(error);
+        (message: string) => {
+          this.snackBar.open(message, '', { duration: 1000 });
         }
       );
   }
@@ -80,7 +90,7 @@ export class CurrencyQuotesComponent implements OnInit, OnDestroy {
     this.restApi
       .stopStartSendingData('stop')
       .pipe(takeUntil(this._complete$))
-      .subscribe((message: string) => {
+      .subscribe(() => {
         this.socketService.disconnectSocket();
 
         this._complete$.next();
